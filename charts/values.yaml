@@ -1,0 +1,27 @@
+labels:
+  namespace: robopd2
+deployment:
+  replicas: 1
+  robopd2Api:
+    image:
+      repository: robopd2/robopd2-api
+      tag: latest
+    imagePullPolicy: Always
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+kubernetesClusterDomain: cluster.local
+secret:
+  robopd2MongoHost: ""
+  robopd2MongoPass: ""
+  robopd2MongoPort: ""
+  robopd2MongoUser: ""
+service:
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP

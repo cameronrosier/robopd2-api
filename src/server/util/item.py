@@ -27,7 +27,7 @@ def unique_formatter(unique_item: dict) -> dict:
         "name": unique_item['name'],
         "lvl_req": unique_item['lvl_req'],
         "properties": item_stats,
-        "property_strings": item_stat_strings,
+        "property_strings": list(set(item_stat_strings)),
         "base": unique_item['base']['name'],
         "str_req": unique_item['str_req'],
         "dex_req": unique_item['dex_req']

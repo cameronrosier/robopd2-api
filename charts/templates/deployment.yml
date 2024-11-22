@@ -21,6 +21,26 @@ spec:
       - env:
         - name: KUBERNETES_CLUSTER_DOMAIN
           value: {{ quote .Values.kubernetesClusterDomain }}
+        - name: ROBOPD2_MONGO_HOST
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "chart.fullname" . }}-secret
+              key: robopd2MongoHost
+        - name: ROBOPD2_MONGO_PORT
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "chart.fullname" . }}-secret
+              key: robopd2MongoPort
+        - name: ROBOPD2_MONGO_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "chart.fullname" . }}-secret
+              key: robopd2MongoUser
+        - name: ROBOPD2_MONGO_PASS 
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "chart.fullname" . }}-secret
+              key: robopd2MongoPass
         image: {{ .Values.deployment.robopd2Api.image.repository }}:{{ .Values.deployment.robopd2Api.image.tag | default .Chart.AppVersion }}
         imagePullPolicy: {{ .Values.deployment.robopd2Api.imagePullPolicy }}
         name: robopd2-api

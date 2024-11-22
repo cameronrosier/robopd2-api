@@ -2,33 +2,6 @@ import re
 from typing import List
 
 
-def requirement_calc(base_stat: str, stat_props: List[str]) -> int:
-    """
-    In order to make sure requirements for an item are given correctly, we need to make sure
-    that any "Requirements" stat within the stat list is accounted for.  This function will take a
-    base stat value and a list of stat properties and apply the "Requirements" amount to the base stat
-    if it exists in the stat property list.
-
-    Args:
-      base_stat (str): The base stat (numeric) to be altered with a requirements stat
-      stat_props (List[str]): A list of stat strings to search through for the "Requirements X%" property
-    
-    Returns:
-      int: A number representing the factoring in of the requirements modifier into the base stat.
-    """
-
-    number = base_stat
-    for stat in stat_props:
-        if "Requirements" in stat:
-            numexp = re.compile(r'[-]?\d[\d,]*[\.]?[\d{2}]*')
-            number = numexp.findall(stat)    
-            number = int(number[0].replace(',', ''))
-    if number < 0:
-        return int(base_stat - (base_stat * int(str(number).replace('-',''))) / 100)
-    else:
-        return int(base_stat + (base_stat * number / 100))
-
-
 def unique_formatter(unique_item: dict) -> dict:
     """
     Since the entries in the database are much more verbose than a user typically needs, this function intends to
@@ -40,27 +13,24 @@ def unique_formatter(unique_item: dict) -> dict:
     Returns:
       dict: A dictionary with unuseful fields scrubbed and others formatted to a more useable manner for front-end clients
     """
-    item_stats = [prop_str['PropertyString'] for prop_str in unique_item['Properties']]
+    item_stats = [prop for prop in unique_item['properties']]
+    item_stat_strings = [prop_str['positive_string'] for prop_str in unique_item['property_strings']]
     stat_values = [
       {
-        "stat": prop['Property']['Code'],
-        "min_value": prop['Min'],
-        "max_value": prop['Max'],
-        "desc_str_positive": prop['ItemStatCost']['DescriptonStringPositive'],    # This spelling error is on purpose. It's how it is in the database.
-        "desc_str_negative": prop['ItemStatCost']['DescriptionStringNegative'],
+        "stat": prop['name'],
+        "min_value": prop['min_value'],
+        "max_value": prop['max_value'],
       }
-      for prop in unique_item['Properties']
+      for prop in item_stats
     ]
     return {
-        "name": unique_item['Name'],
-        "ilvl": unique_item['ItemLevel'],
-        "lvl_req": unique_item['RequiredLevel'],
-        "item_code": unique_item['Code'],
-        "stat_values": stat_values,
+        "name": unique_item['name'],
+        "lvl_req": unique_item['lvl_req'],
         "properties": item_stats,
-        "base": unique_item['Equipment']['Name'],
-        "str_req": unique_item['Equipment']['RequiredStrength'],
-        "dex_req": unique_item['Equipment']['RequiredDexterity']
+        "property_strings": item_stat_strings,
+        "base": unique_item['base']['name'],
+        "str_req": unique_item['str_req'],
+        "dex_req": unique_item['dex_req']
     }
 
 def runeword_formatter(runeword_item: dict) -> dict:

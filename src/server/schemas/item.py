@@ -5,21 +5,19 @@ from pydantic import BaseModel, Field
 
 class UniqueItemSchema(BaseModel):
     name: str = Field(...)
-    ilvl: int = Field(...)
     lvl_req: int = Field(...)
-    item_code: str = Field(...)
     stats: List[str] = Field(...)
     base: str = Field(...)
     str_req: int = Field(...)
     dex_req: int = Field(...)
+    rarity: str = Field(...)
+    max_sockets: int = Field(...)
 
     class Config:
         schema_extra = {
             "example": {
                 "name": "The Oculus",
-                "ilvl": 50,
                 "lvl_req": 42,
-                "item_code": "oba",
                 "stats": [
                     "2% Chance to Cast Level 1  Teleport when Struck",
                     "+[2-3] to All Skills (varies)",

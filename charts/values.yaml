@@ -1,7 +1,7 @@
 labels:
   namespace: robopd2
 deployment:
-  replicas: 1
+  replicas: 2
   robopd2Api:
     image:
       repository: robopd2/robopd2-api

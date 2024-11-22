@@ -21,9 +21,6 @@ spec:
       - env:
         - name: KUBERNETES_CLUSTER_DOMAIN
           value: {{ quote .Values.kubernetesClusterDomain }}
-        envFrom:
-        - secretRef:
-            name: {{ include "chart.fullname" . }}-secret
         image: {{ .Values.deployment.robopd2Api.image.repository }}:{{ .Values.deployment.robopd2Api.image.tag | default .Chart.AppVersion }}
         imagePullPolicy: {{ .Values.deployment.robopd2Api.imagePullPolicy }}
         name: robopd2-api

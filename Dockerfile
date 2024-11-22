@@ -1,4 +1,4 @@
-FROM python:3.8-slim-bookworm
+FROM python:3.12-slim-bookworm
 
 LABEL maintainer="Cameron Rosier <rosiercam@gmail.com>"
 

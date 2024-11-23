@@ -37,7 +37,7 @@ def runeword_formatter(runeword_item: dict) -> dict:
     Returns:
       dict: A dictionary with unuseful fields scrubbed and others formatted to a more useable manner for front-end clients
     """
-    item_stats = [prop for prop in runeword_item['Properties']]
+    item_stats = [prop for prop in runeword_item['properties']]
     item_stat_strings = [prop_str['positive_string'] for prop_str in runeword_item['property_strings']]
 
     return {
@@ -47,7 +47,6 @@ def runeword_formatter(runeword_item: dict) -> dict:
         "bases": [item['name'] for item in runeword_item['bases']],
         "runes": runeword_item['runes'],
     }
-
 
 def get_items_from_set(set: str) -> List[dict]:
     """

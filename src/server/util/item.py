@@ -15,14 +15,7 @@ def unique_formatter(unique_item: dict) -> dict:
     """
     item_stats = [prop for prop in unique_item['properties']]
     item_stat_strings = [prop_str['positive_string'] for prop_str in unique_item['property_strings']]
-    stat_values = [
-      {
-        "stat": prop['name'],
-        "min_value": prop['min_value'],
-        "max_value": prop['max_value'],
-      }
-      for prop in item_stats
-    ]
+
     return {
         "name": unique_item['name'],
         "lvl_req": unique_item['lvl_req'],
@@ -44,26 +37,15 @@ def runeword_formatter(runeword_item: dict) -> dict:
     Returns:
       dict: A dictionary with unuseful fields scrubbed and others formatted to a more useable manner for front-end clients
     """
-    item_stats = [prop_str['PropertyString'] for prop_str in runeword_item['Properties']]
-    stat_values = [
-      {
-        "stat": prop['Property']['Code'],
-        "min_value": prop['Min'],
-        "max_value": prop['Max'],
-        "desc_str_positive": prop['ItemStatCost']['DescriptonStringPositive'],    # This spelling error is on purpose. It's how it is in the database.
-        "desc_str_negative": prop['ItemStatCost']['DescriptionStringNegative'],
-      }
-      for prop in runeword_item['Properties']
-    ]
+    item_stats = [prop for prop in runeword_item['Properties']]
+    item_stat_strings = [prop_str['positive_string'] for prop_str in runeword_item['property_strings']]
+
     return {
-        "name": runeword_item['Name'],
-        "ilvl": runeword_item['ItemLevel'],
-        "lvl_req": runeword_item['RequiredLevel'],
-        "item_code": runeword_item['Code'],
-        "stats": stat_values,
+        "name": runeword_item['name'],
         "properties": item_stats,
-        "bases": [item['Name'] for item in runeword_item['Types']],
-        "runes": [item['Name'] for item in runeword_item['Runes']],
+        "property_strings": list(set(item_stat_strings)),
+        "bases": [item['name'] for item in runeword_item['bases']],
+        "runes": runeword_item['runes'],
     }
 
 

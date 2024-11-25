@@ -23,7 +23,8 @@ def unique_formatter(unique_item: dict) -> dict:
         "property_strings": list(set(item_stat_strings)),
         "base": unique_item['base']['name'],
         "str_req": unique_item['str_req'],
-        "dex_req": unique_item['dex_req']
+        "dex_req": unique_item['dex_req'],
+        "max_sockets": unique_item['max_sockets'],
     }
 
 def runeword_formatter(runeword_item: dict) -> dict:

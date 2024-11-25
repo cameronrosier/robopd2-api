@@ -41,7 +41,7 @@ async def get_all_unique_items() -> dict:
     }
 
 @runeword_router.get("/{name}", response_description="Item fetched", status_code=200)
-async def get_single_runeword_item(name: str) -> str:
+async def get_single_runeword_item(name: str) -> dict:
     runeword_item = await get_runeword_item(name)
     if runeword_item:
         return {

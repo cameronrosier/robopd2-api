@@ -10,7 +10,8 @@ from server.util.item import (
 )
 
 # No colon (':') between host and port because the MONGO_PORT env var already has it
-MONGO_CONN = f"mongodb://{os.getenv('ROBOPD2_MONGO_USER')}:{os.getenv('ROBOPD2_MONGO_PASS')}@{os.getenv('ROBOPD2_MONGO_HOST')}:{os.getenv('ROBOPD2_MONGO_PORT')}" 
+MONGO_CONN = "mongodb://robopd2:apple321@192.168.2.206:32017"
+# MONGO_CONN = f"mongodb://{os.getenv('ROBOPD2_MONGO_USER')}:{os.getenv('ROBOPD2_MONGO_PASS')}@{os.getenv('ROBOPD2_MONGO_HOST')}:{os.getenv('ROBOPD2_MONGO_PORT')}" 
 print(f"Connecting to MongoDB at {MONGO_CONN}")
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_CONN, authSource="admin")
 database = client[f"robopd2"]

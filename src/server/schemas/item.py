@@ -6,7 +6,8 @@ from pydantic import BaseModel, Field
 class UniqueItemSchema(BaseModel):
     name: str = Field(...)
     lvl_req: int = Field(...)
-    stats: List[str] = Field(...)
+    properties: List[dict] = Field(...)
+    property_strings: List[str] = Field(...)
     base: str = Field(...)
     str_req: int = Field(...)
     dex_req: int = Field(...)
@@ -31,10 +32,8 @@ class UniqueItemSchema(BaseModel):
 
 class RunewordItemSchema(BaseModel):
     name: str = Field(...)
-    ilvl: int = Field(...)
-    lvl_req: int = Field(...)
-    item_code: str = Field(...)
-    stats: List[str] = Field(...)
+    properties: List[dict] = Field(...)
+    property_strings: List[str] = Field(...)
     bases: List[str] = Field(...)
     runes: List[str] = Field(...)
 
